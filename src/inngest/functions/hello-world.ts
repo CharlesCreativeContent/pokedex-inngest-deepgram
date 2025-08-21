@@ -23,7 +23,7 @@ export const getGeneration = inngest.createFunction(
     console.log("env", !!process.env.OPENAI_API_KEY)
     const response = await step.ai.infer("call-openai", {
       model: step.ai.models.openai({ model: "gpt-4o",
-        apiKey: "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" // Only for testing
+        apiKey: process.env.OPENAI_API_KEY // Only for testing
        }),
       // body is the model request, which is strongly typed depending on the model
       body: {
