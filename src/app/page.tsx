@@ -259,7 +259,7 @@ function getPokemon(id: string){
 
  
   <div className="search-container">
-    <input id="name-input" type="text" placeholder="Enter Name or ID" defaultValue="pikachu" 
+    <input id="name-input" type="text" placeholder="Enter Name or ID" 
         onBlur={(e) => updateUI(e.target.value)} />
         
     <div id="search-btn" className="ball-container">
