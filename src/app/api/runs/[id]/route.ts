@@ -1,7 +1,7 @@
 // src/app/api/runs/[id]/route.ts
 import { NextResponse } from 'next/server';
 
-const BASE_URL = process.env.VERCEL_URL 
+const BASE_URL = "https://api.inngest.com"
 export async function GET(
   _req: Request,
   context: { params: Promise<{ id: string }> } // ← params is a Promise in Next 15
@@ -11,9 +11,9 @@ export async function GET(
   const upstream = await fetch(`https://${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
+      ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
-      ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
     },
   });
   if (!upstream.ok) {
