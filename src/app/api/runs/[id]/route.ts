@@ -12,11 +12,11 @@ export async function GET(
   const upstream = await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
-      ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
+      ...{ 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` },
     },
   })
   .then(inference=>inference.json())
-  return NextResponse.json({ data: upstream });
+  return NextResponse.json( upstream.data );
 }
