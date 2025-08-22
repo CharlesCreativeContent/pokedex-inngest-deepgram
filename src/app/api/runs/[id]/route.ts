@@ -19,7 +19,8 @@ export async function GET(
   })
   .then(inference=>inference.json())
   .then(done=>{
-  const answer = done.data[0].message.content
+  console.log("done: ",done.data[0])
+  const answer = done.data[0]
   console.log("answer: ",answer)
   return answer
 })
