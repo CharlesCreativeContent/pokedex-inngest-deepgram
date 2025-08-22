@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const { id } = await context.params; // ← await it
 
-  const upstream = await fetch(`https://${BASE_URL}/v1/events/${id}/runs`, {
+  const upstream = await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
       ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
