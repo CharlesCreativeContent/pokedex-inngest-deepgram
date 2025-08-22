@@ -19,9 +19,10 @@ export async function GET(
   })
   .then(inference=>inference.json())
   .then(done=>{
-  const answer = done.data[0].output[0].message.content
+  const answer = done.data[0].message.content
+  console.log("answer: ",answer)
   return answer
 })
-
+console.log("upstream: ",upstream)
   return NextResponse.json(upstream);
 }
