@@ -13,7 +13,7 @@ export async function GET(
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
-      ...(process.env.INNGEST_EVENT_KEY ? { 'x-inngest-env': process.env.INNGEST_EVENT_KEY } : {}),
+      ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
     },
   });
   if (!upstream.ok) {
