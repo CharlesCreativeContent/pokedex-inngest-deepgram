@@ -1,8 +1,6 @@
 // src/app/api/runs/[id]/route.ts
 import { NextResponse } from 'next/server';
 
-const INNGEST_BASE_URL =
-  process.env.INNGEST_BASE_URL ?? 'http://localhost:8288';
 const INNGEST_AUTH =
   process.env.INNGEST_SIGNING_KEY ?? process.env.INNGEST_EVENT_KEY ?? '';
 const INNGEST_ENV = process.env.INNGEST_ENV ?? '';
@@ -13,7 +11,7 @@ export async function GET(
 ) {
   const { id } = await context.params; // ← await it
 
-  const upstream = await fetch(`${INNGEST_BASE_URL}/v1/events/${id}/runs`, {
+  const upstream = await fetch(`https://api.inngest.com/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
