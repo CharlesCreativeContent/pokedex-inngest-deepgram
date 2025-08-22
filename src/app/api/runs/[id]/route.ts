@@ -1,6 +1,8 @@
 // src/app/api/runs/[id]/route.ts
 import { NextResponse } from 'next/server';
 
+export const runtime = "nodejs"; // the SDK/API expects Node, not Edge
+
 const BASE_URL = "https://api.inngest.com"
 export async function GET(
   _req: Request,
