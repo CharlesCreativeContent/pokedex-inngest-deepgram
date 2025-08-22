@@ -18,10 +18,7 @@ export async function GET(
     },
   })
   .then(inference=>NextResponse.json(inference))
-  .then(done=>{
-    console.log("done: ",done)
-    return done
-  })
+    console.log("done: ",upstream)
   
   return upstream
 }

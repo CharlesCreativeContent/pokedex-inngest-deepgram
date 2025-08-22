@@ -22,7 +22,7 @@ updater(name,"#main-screen")
 setTimeout( async ()=>{
 const output = await triggerInngestEvent(eventId)
 console.log("finalOutput: ",output)
-const answer = output.data[0].output
+const answer = output
 console.log("answer: ",answer)
 
 pokedexTalk( intro + " " + answer )
