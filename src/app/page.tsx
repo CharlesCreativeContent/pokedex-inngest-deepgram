@@ -30,6 +30,41 @@ setMessage(answer+"")
 },3000)
 }
 
+
+async function triggerInngestEvent(eventId: string) {
+  return await fetch(`/api/runs/${eventId}`, { method: 'GET' }).then(res=>res.json());
+}
+
+async function preload(pokemon: string) {
+  const res = await fetch('/api/action', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: pokemon }),
+  }).then(stream=>stream.json());
+  console.log("res: ", res)
+  const { eventId } = res
+  console.log("eventId: ", eventId)
+  return eventId as string;
+}
+
+function updater(nameOrId: string, selector: string): void {
+  const el = document.querySelector(selector);
+  if (!(el instanceof HTMLElement)) return;
+
+  if (selector === "#main-screen") {
+    el.style.backgroundImage = `url(https://projectpokemon.org/images/normal-sprite/${nameOrId}.gif)`;
+  } else {
+    el.textContent = nameOrId;
+  }
+}
+
+function getPokemon(id: string){
+  return fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+  .then(_=>_.json())
+  .then(data=>data)
+  .catch(error=>console.error(error))
+}
+
 const pokedexTalk = async (speech: string) => {
   try {
     const res = await fetch("/api/speak", {
@@ -48,41 +83,6 @@ const pokedexTalk = async (speech: string) => {
     console.error(err);
   }
 };
-
-function updater(nameOrId: string, selector: string): void {
-  const el = document.querySelector(selector);
-  if (!(el instanceof HTMLElement)) return;
-
-  if (selector === "#main-screen") {
-    el.style.backgroundImage = `url(https://projectpokemon.org/images/normal-sprite/${nameOrId}.gif)`;
-  } else {
-    el.textContent = nameOrId;
-  }
-}
-
-async function preload(pokemon: string) {
-  const res = await fetch('/api/action', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: pokemon }),
-  }).then(stream=>stream.json());
-  console.log("res: ", res)
-  const { eventId } = res
-  console.log("eventId: ", eventId)
-  return eventId as string;
-}
-
-
-async function triggerInngestEvent(eventId: string) {
-  return await fetch(`/api/runs/${eventId}`, { method: 'GET' }).then(res=>res.json());
-}
-
-function getPokemon(id: string){
-  return fetch("https://pokeapi.co/api/v2/pokemon/" + id)
-  .then(_=>_.json())
-  .then(data=>data)
-  .catch(error=>console.error(error))
-}
 
   return (
     

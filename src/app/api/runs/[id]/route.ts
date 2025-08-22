@@ -17,13 +17,11 @@ export async function GET(
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
     },
   })
-  .then(inference=>inference.json())
+  .then(inference=>NextResponse.json(inference))
   .then(done=>{
-  console.log("done: ",done.data[0])
-  const answer = done.data[0]
-  console.log("answer: ",answer)
-  return answer
-})
-console.log("upstream: ",upstream)
-  return NextResponse.json(upstream);
+    console.log("done: ",done)
+    return done
+  })
+  
+  return upstream
 }
