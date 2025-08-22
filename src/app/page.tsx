@@ -14,12 +14,16 @@ console.log(message,text,message===text)
 const intro = `${name}! A ${types[0].type.name} type pokemon!`
 setName(name)
 const eventId = await preload(name)
+console.log("eventId: ",eventId)
 setId("#"+id)
 setType(types[0].type.name)
 updater(name,"#main-screen")
 setTimeout( async ()=>{
 const output = await triggerInngestEvent(eventId)
+console.log("finalOutput: ",output)
 const answer = output.data[0].output
+console.log("answer: ",answer)
+
 pokedexTalk( intro + " " + answer )
 setMessage(answer+"")
 },3000)
