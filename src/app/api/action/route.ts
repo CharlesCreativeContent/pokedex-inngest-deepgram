@@ -1,6 +1,6 @@
 // src/app/api/action/route.ts
 import { NextResponse } from 'next/server';
-import { inngest } from "../../../inngest/inngest.client"
+import { inngest } from "../../../inngest/inngest"
 
 export async function POST(req: Request) {
   const { message } = await req.json();
