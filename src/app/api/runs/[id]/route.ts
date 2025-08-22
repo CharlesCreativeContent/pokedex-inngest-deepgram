@@ -2,7 +2,6 @@
 import { NextResponse } from 'next/server';
 
 export const runtime = "nodejs"; // the SDK/API expects Node, not Edge
-
 const BASE_URL = "https://api.inngest.com"
 export async function GET(
   _req: Request,
@@ -17,13 +16,12 @@ export async function GET(
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
     },
-  });
-  if (!upstream.ok) {
-    return NextResponse.json(
-      { error: `Upstream ${upstream.status}`, body: await upstream.text() },
-      { status: upstream.status }
-    );
-  }
+  })
+  .then(inference=>inference.json())
+  .then(done=>{
+  const answer = done.data[0].output[0].message.content
+  return answer
+})
 
-  return NextResponse.json(await upstream.json());
+  return NextResponse.json(upstream);
 }
