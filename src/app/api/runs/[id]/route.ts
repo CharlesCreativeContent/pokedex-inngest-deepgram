@@ -1,10 +1,7 @@
 // src/app/api/runs/[id]/route.ts
 import { NextResponse } from 'next/server';
 
-const INNGEST_AUTH =
-  process.env.INNGEST_SIGNING_KEY ?? process.env.INNGEST_EVENT_KEY ?? '';
-const INNGEST_ENV = process.env.INNGEST_ENV ?? '';
-const BASE_URL = process.env.VERCEL_URL ?? "localhost:8288" 
+const BASE_URL = process.env.VERCEL_URL 
 export async function GET(
   _req: Request,
   context: { params: Promise<{ id: string }> } // ← params is a Promise in Next 15
@@ -15,8 +12,8 @@ export async function GET(
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      Authorization: `Bearer ${INNGEST_AUTH}`,
-      ...(INNGEST_ENV ? { 'x-inngest-env': INNGEST_ENV } : {}),
+      Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
+      ...(process.env.INNGEST_EVENT_KEY ? { 'x-inngest-env': process.env.INNGEST_EVENT_KEY } : {}),
     },
   });
   if (!upstream.ok) {
