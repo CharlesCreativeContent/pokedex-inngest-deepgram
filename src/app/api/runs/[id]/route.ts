@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 
 export const runtime = "nodejs"; // the SDK/API expects Node, not Edge
-const BASE_URL = "https://pokedex-inngest-deepgram.vercel.app" // ??  "https://api.inngest.com"
+const BASE_URL = "https://" + (process.env.VERCEL_URL ? process.env.VERCEL_URL :"api.inngest.com") // ??  "https://pokedex-inngest-deepgram.vercel.app"
 export async function GET(
   _req: Request,
   context: { params: Promise<{ id: string }> } // ← params is a Promise in Next 15
