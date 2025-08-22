@@ -4,14 +4,14 @@ import { NextResponse } from 'next/server';
 const INNGEST_AUTH =
   process.env.INNGEST_SIGNING_KEY ?? process.env.INNGEST_EVENT_KEY ?? '';
 const INNGEST_ENV = process.env.INNGEST_ENV ?? '';
-
+const BASE_URL = process.env.VERCEL_URL ?? "https://localhost:8288"
 export async function GET(
   _req: Request,
   context: { params: Promise<{ id: string }> } // ← params is a Promise in Next 15
 ) {
   const { id } = await context.params; // ← await it
 
-  const upstream = await fetch(`https://api.inngest.com/v1/events/${id}/runs`, {
+  const upstream = await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -19,7 +19,6 @@ export async function GET(
       ...(INNGEST_ENV ? { 'x-inngest-env': INNGEST_ENV } : {}),
     },
   });
-
   if (!upstream.ok) {
     return NextResponse.json(
       { error: `Upstream ${upstream.status}`, body: await upstream.text() },
