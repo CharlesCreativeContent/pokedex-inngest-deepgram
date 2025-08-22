@@ -68,8 +68,10 @@ async function preload(pokemon: string) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: pokemon }),
-  });
-  const { eventId } = await res.json();
+  }).then(stream=>stream.json());
+  console.log("res: ", res)
+  const { eventId } = res
+  console.log("eventId: ", eventId)
   return eventId as string;
 }
 
