@@ -18,5 +18,5 @@ export async function GET(
     },
   })
   .then(inference=>inference.json())
-  return JSON.stringify(upstream)
+  return NextResponse.json({ data: upstream });
 }
