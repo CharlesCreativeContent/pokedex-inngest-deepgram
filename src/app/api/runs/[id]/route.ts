@@ -14,11 +14,9 @@ export async function GET(
     headers: {
       ...( { 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` }),
       Accept: 'application/json',
-      Authorization: `Bearer ${process.env.INNGEST_EVENT_KEY}`,
+      Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
     },
   })
-  .then(inference=>NextResponse.json(inference))
-    console.log("done: ",upstream)
-  
-  return upstream
+  .then(inference=>inference.json())
+  return JSON.stringify(upstream)
 }
