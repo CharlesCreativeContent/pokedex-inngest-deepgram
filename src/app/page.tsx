@@ -18,8 +18,8 @@ console.log("eventId: ",eventId)
 setId("#"+id)
 setType(types[0].type.name)
 updater(name,"#main-screen")
-const output = await getRunOutput(eventId)
 setTimeout( async ()=>{
+const output = await getRunOutput(eventId)
 console.log("finalOutput: ",output)
 const answer = output
 console.log("answer: ",answer)
@@ -86,7 +86,7 @@ const pokedexTalk = async (speech: string) => {
 async function getRunOutput(runId:string) {
   let runs = await triggerInngestEvent(runId);
   while (runs[0].status !== "Completed") {
-    await new Promise((resolve) => setTimeout(resolve, 750));
+    await new Promise((resolve) => setTimeout(resolve, 1250));
     runs = await triggerInngestEvent(runId);
     if (runs[0].status === "Failed" || runs[0].status === "Cancelled") {
       throw new Error(`Function run ${runs[0].status}`);
