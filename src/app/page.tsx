@@ -10,7 +10,7 @@ const [type, setType] = useState("#Type");
 
 async function updateUI(text: string): Promise<void> {
 const {name, id, types} = await getPokemon(text)
-console.log(message,text,message===text)
+console.log("function started: ",text)
 const intro = `${name}! A ${types[0].type.name} type pokemon!`
 setName(name)
 const eventId = await preload(name)
@@ -18,6 +18,7 @@ console.log("eventId: ",eventId)
 setId("#"+id)
 setType(types[0].type.name)
 updater(name,"#main-screen")
+
 setTimeout( async ()=>{
 const output = await triggerInngestEvent(eventId)
 console.log("finalOutput: ",output)
@@ -48,16 +49,12 @@ const pokedexTalk = async (speech: string) => {
   }
 };
 
-
-const pokemon2ImageBaseURL = (id:string) => `url(https://projectpokemon.org/images/normal-sprite/${id}.gif)`
-
-
 function updater(nameOrId: string, selector: string): void {
   const el = document.querySelector(selector);
   if (!(el instanceof HTMLElement)) return;
 
   if (selector === "#main-screen") {
-    el.style.backgroundImage = pokemon2ImageBaseURL(nameOrId);
+    el.style.backgroundImage = `url(https://projectpokemon.org/images/normal-sprite/${nameOrId}.gif)`;
   } else {
     el.textContent = nameOrId;
   }
@@ -77,8 +74,7 @@ async function preload(pokemon: string) {
 
 
 async function triggerInngestEvent(eventId: string) {
-  const res = await fetch(`/api/runs/${eventId}`, { method: 'GET' });
-  return res.json();
+  return await fetch(`/api/runs/${eventId}`, { method: 'GET' }).then(res=>res.json());
 }
 
 function getPokemon(id: string){
