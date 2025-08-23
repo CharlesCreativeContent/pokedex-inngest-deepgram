@@ -10,17 +10,10 @@ const [type, setType] = useState("#Type");
 
 async function updateUI(text: string): Promise<void> {
 const {name, id, types} = await getPokemon(text)
-setName(name)
-setId("#"+id)
-setType(types[0].type.name)
-updater(name,"#main-screen")
-const intro = `${name}! A ${types[0].type.name} type pokemon!`
 const eventId = await preload(name)
-await setTimeout( async ()=>{
 const output = await triggerInngestEvent(name)
-pokedexTalk( intro + " " + output )
-setMessage(output+"")
-},1000)
+updateScreens(name,id,types[0].type.name,output)
+pokedexTalk(`${name}! A ${types[0].type.name} type pokemon! ${output}`)
 }
 
 
@@ -38,22 +31,10 @@ async function preload(pokemon: string) {
   return eventId as string;
 }
 
-function updater(nameOrId: string, selector: string): void {
-  const el = document.querySelector(selector);
+function updateImage(name: string): void {
+  const el = document.querySelector("#main-screen")
   if (!(el instanceof HTMLElement)) return;
-
-  if (selector === "#main-screen") {
-    el.style.backgroundImage = `url(https://projectpokemon.org/images/normal-sprite/${nameOrId}.gif)`;
-  } else {
-    el.textContent = nameOrId;
-  }
-}
-
-function getPokemon(id: string){
-  return fetch("https://pokeapi.co/api/v2/pokemon/" + id)
-  .then(_=>_.json())
-  .then(data=>data)
-  .catch(error=>console.error(error))
+  el.style.backgroundImage = `url(https://projectpokemon.org/images/normal-sprite/${name}.gif)`;
 }
 
 const pokedexTalk = async (speech: string) => {
@@ -63,9 +44,7 @@ const pokedexTalk = async (speech: string) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: speech }),
     });
-
     if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-
     const blob = await res.blob(); // audio, not JSON
     const url = URL.createObjectURL(blob);
     const audio = new Audio(url);
@@ -75,21 +54,34 @@ const pokedexTalk = async (speech: string) => {
   }
 };
 
+function updateScreens(name:string, id:string, type:string, output:string){
+setName(name)
+setId("#"+id)
+setType(type)
+updateImage(name)
+setMessage(output)
+}
+
+function getPokemon(id: string){
+  return fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+  .then(data=>data.json())
+  .catch(error=>console.error(error))
+}
+
+const runPokedex = async ()=>{
+  const text = document.querySelector("input")?.value
+  const status = await getPokemon(text+"")
+  if (status) updateUI(text+"")
+}
+
   return (
     
     <div id="bigPicture" style={{ backgroundColor: "white" }}>
       
       <div className="logo">
-        <Image
-  src="/pokedex.jpg"
-  alt="logo"
-  id="logo"
-  width={417}          // any numbers that match/approx the image ratio
-  height={209}
-  style={{ height: "200%", width: "auto" }} // keeps your “200% height” effect
-  priority
-/>
-  </div>
+        <Image src="/pokedex.jpg" alt="logo" id="logo" width={417} height={209}
+        style={{ height: "200%", width: "auto" }} priority />
+      </div>
 
   <div className="mention">
     <div className="links">
@@ -251,10 +243,9 @@ const pokedexTalk = async (speech: string) => {
 
  
   <div className="search-container">
-    <input id="name-input" type="text" placeholder="Enter Name or ID" 
-        onBlur={(e) => updateUI(e.target.value)} />
+    <input id="name-input" type="text" placeholder="Enter Name or ID"  />
         
-    <div id="search-btn" className="ball-container">
+    <div onClick={() => runPokedex()} id="search-btn" className="ball-container">
       <div className="upper-half-ball"></div>
       <div className="bottom-half-ball"></div>
       <div className="center-ball"></div>

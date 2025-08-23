@@ -1,16 +1,28 @@
 // src/app/api/runs/[id]/route.ts
 import { NextResponse } from 'next/server';
+export const runtime = "nodejs";
 
-export const runtime = "nodejs"; // the SDK/API expects Node, not Edge
-export async function GET(
-  _req: Request,
-  context: { params: Promise<{ id: string }> } // ← params is a Promise in Next 15
-) {
+export async function GET( _req: Request, 
+  context: { params: Promise<{ id: string }> }
+){
+  const { id } = await context.params;
   
-  const { id } = await context.params; // ← await it
+// Could not get to work in production
+
+// const BASE_URL = "https://api.inngest.com" // ??  "https://pokedex-inngest-deepgram.vercel.app"
+// async function triggerIngest(id: string){
+// return await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
+//     method: 'GET',
+//     headers: {
+//       Accept: 'application/json',
+//       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
+//     },
+//   }).then(inference=>inference.json())
+// }
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 if (!OPENAI_API_KEY) throw new Error("Missing OPENAI_API_KEY env var.");
+
   const res = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
@@ -18,19 +30,14 @@ if (!OPENAI_API_KEY) throw new Error("Missing OPENAI_API_KEY env var.");
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini",          // pick any available text model
-      input: `Give me a random interesting and concise fact about ${id} as if from the pokedex. In less than 40 characters.`,                 // your user prompt
-      // instructions: "You are a concise assistant.", // optional system-style guidance
+      model: "gpt-4o-mini",
+      input: `Give me a random interesting and concise fact about ${id} as if from the pokedex. In less than 40 characters.`,
     }),
   });
 
   if (!res.ok) {
-    // Surface useful error info
     const errTxt = await res.text();
-    throw new Error(`OpenAI API ${res.status}: ${errTxt}`);
-  }
-
+    throw new Error(`OpenAI API ${res.status}: ${errTxt}`);}
   const data = await res.json();
-  // The Responses API provides a convenient aggregated string:
   return NextResponse.json(data.output[0].content[0].text);
 }
