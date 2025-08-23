@@ -19,14 +19,14 @@ setId("#"+id)
 setType(types[0].type.name)
 updater(name,"#main-screen")
 setTimeout( async ()=>{
-const output = await getRunOutput(eventId)
+const output = await triggerInngestEvent(eventId)
 console.log("finalOutput: ",output)
 const answer = output
 console.log("answer: ",answer)
 
 pokedexTalk( intro + " " + answer )
 setMessage(answer+"")
-},3000)
+},3500)
 }
 
 
