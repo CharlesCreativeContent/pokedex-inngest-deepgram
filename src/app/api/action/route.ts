@@ -6,25 +6,21 @@ const BASE_URL = "https://api.inngest.com" // ??  "https://pokedex-inngest-deepg
 
 export async function POST(req: Request) {
   const { message } = await req.json();
-
+  let runs
   const res = await inngest.send({
     name: 'test/hello.world',
     data: { message },
   });
+  console.log("res: ",res)
+  console.log("res.ids: ",res.ids[0])
 const id = res.ids[0]
 
-  let runs = await triggerIngest(id);
+await setTimeout(async ()=>{
+  runs = await triggerIngest(id);
   console.log("currentSnag",runs)
-  while (runs[0].status !== "Completed") {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    runs = await triggerIngest(id);
-    console.log("finalSnag",runs)
 
-    if (runs[0].status === "Failed" || runs[0].status === "Cancelled") {
-      throw new Error(`Function run ${runs[0].status}`);
-    }
-  }
+},3000)
+
   return NextResponse.json({ eventId: id, generation: runs });
 
 async function triggerIngest(id: string){
@@ -33,7 +29,6 @@ return await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
-      ...{ 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` },
     },
   })
   .then(inference=>inference.json())

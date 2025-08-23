@@ -28,8 +28,7 @@ return await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
-      ...{ 'x-inngest-env': `${process.env.INNGEST_EVENT_KEY}` },
+      Authorization: `Bearer ${process.env.INNGEST_EVENT_KEY}`,
     },
   })
   .then(inference=>inference.json())
