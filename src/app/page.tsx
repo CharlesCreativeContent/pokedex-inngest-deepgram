@@ -10,23 +10,17 @@ const [type, setType] = useState("#Type");
 
 async function updateUI(text: string): Promise<void> {
 const {name, id, types} = await getPokemon(text)
-console.log("function started: ",text)
-const intro = `${name}! A ${types[0].type.name} type pokemon!`
 setName(name)
-const eventId = await preload(name)
-console.log("eventId: ",eventId)
 setId("#"+id)
 setType(types[0].type.name)
 updater(name,"#main-screen")
+const intro = `${name}! A ${types[0].type.name} type pokemon!`
+const eventId = await preload(name)
 await setTimeout( async ()=>{
-const output = await triggerInngestEvent(eventId)
-console.log("finalOutput: ",output)
-const answer = output
-console.log("answer: ",answer)
-
-pokedexTalk( intro + " " + answer )
-setMessage(answer+"")
-},3500)
+const output = await triggerInngestEvent(name)
+pokedexTalk( intro + " " + output )
+setMessage(output+"")
+},1000)
 }
 
 
@@ -40,9 +34,7 @@ async function preload(pokemon: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: pokemon }),
   }).then(stream=>stream.json());
-  console.log("res: ", res)
   const { eventId } = res
-  console.log("eventId: ", eventId)
   return eventId as string;
 }
 
@@ -209,8 +201,7 @@ const pokedexTalk = async (speech: string) => {
         </svg>
       </div>
       <div className="top-screen-container">
-        <div id="about-screen" className="right-panel-screen">{message}
-        </div>
+        <div id="about-screen" className="right-panel-screen">{message}</div>
       </div>
       <div className="square-buttons-container">
         <div className="blue-squares-container">
