@@ -9,7 +9,23 @@ export async function GET(
 ) {
   const { id } = await context.params; // ← await it
 
-  const upstream = await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
+  let runs = await triggerIngest(id);
+
+  while (runs[0].status !== "Completed") {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+    runs = await triggerIngest(id);
+
+    if (runs[0].status === "Failed" || runs[0].status === "Cancelled") {
+      throw new Error(`Function run ${runs[0].status}`);
+    }
+  }
+  return NextResponse.json(runs[0]);
+
+
+
+async function triggerIngest(id: string){
+return await fetch(`${BASE_URL}/v1/events/${id}/runs`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -18,5 +34,7 @@ export async function GET(
     },
   })
   .then(inference=>inference.json())
-  return NextResponse.json( upstream.data );
+}
+
+
 }
