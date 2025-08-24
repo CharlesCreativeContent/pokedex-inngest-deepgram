@@ -2,7 +2,7 @@
 
 This is a **Pokémon Pokédex demo app** built with **Next.js**, **Inngest**, **Deepgram**, and **OpenAI**. It demonstrates how to orchestrate an AI-powered workflow—such as transcribing audio and generating intelligent responses—using the [Inngest](https://www.inngest.com) cloud platform.
 
-> ⚡ Run it locally to interact with the Pokédex via **voice or text**, and observe each workflow step in real-time using Inngest’s Dev UI.
+> ⚡ Run it locally to interact with the Pokédex, and observe each workflow step in real-time using Inngest’s Dev UI.
 
 ---
 
@@ -75,12 +75,11 @@ Visit [http://localhost:8288](http://localhost:8288) to monitor your events and 
 
 - Open [http://localhost:3000](http://localhost:3000)
 - Interact with the Pokédex:
-  - 🎙 Speak a Pokémon’s name or question (uses Deepgram for voice recognition)
-  - 💬 Type in a question about a Pokémon
+  - 🎙 Enter pokemon name or #ID
 - 📡 The app uses:
-  - Deepgram to transcribe voice
-  - OpenAI to generate responses
   - Inngest to coordinate the workflow
+  - OpenAI to generate responses
+  - Deepgram to generate voice
 - 🧪 Watch events and functions update live in the Inngest Dev UI
 
 ---
@@ -89,7 +88,8 @@ Visit [http://localhost:8288](http://localhost:8288) to monitor your events and 
 
 Click below to deploy to Vercel:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCharlesCreativeContent%2Fpokedex-inngest-deepgram&env=INNGEST_EVENT_KEY,INNGEST_SIGNING_KEY,DEEPGRAM_API_KEY,OPENAI_API_KEY&envDescription=You+will+need+API+keys+from+Inngest%2C+Deepgram%2C+and+OpenAI+to+deploy+this+project.&envLink=https%3A%2F%2Fapp.inngest.com%2Fenv%2Fproduction%2Fmanage%2Fkeys%2Chttps%3A%2F%2Fapp.inngest.com%2Fenv%2Fproduction%2Fmanage%2Fsigning-key%2Chttps%3A%2F%2Fplatform.openai.com%2Fapi-keys%2Chttps%3A%2F%2Fconsole.deepgram.com%2Flogin&project-name=pokedex-inngest-deepgram&demo-title=Pok%C3%A9dex+AI+App&demo-description=A+Pok%C3%A9dex+demo+built+with+Next.js%2C+Inngest%2C+Deepgram%2C+and+OpenAI.+Talk+or+type+to+learn+about+Pok%C3%A9mon+with+AI-powered+responses.&demo-url=https%3A%2F%2Fpokedex-inngest-deepgram.vercel.app&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2FCharlesCreativeContent%2FmyImages%2Fmain%2Fpokedex-cover.png&teamSlug=charlescreativecontents-projects&env=INNGEST_ENV%3Dproduction)
+
 
 You’ll be prompted to:
 
@@ -105,33 +105,8 @@ After deployment, access your live app via the Vercel-provided URL.
 
 ---
 
-## 🧰 Tech Stack
-
-- [Next.js](https://nextjs.org/)
-- [Inngest](https://www.inngest.com)
-- [Deepgram](https://www.deepgram.com)
-- [OpenAI](https://platform.openai.com)
-
----
-
 ## 📚 Resources
 
 - 📘 [Inngest Docs – Next.js Quick Start](https://www.inngest.com/docs/quickstarts/nextjs)
-- 📘 [Inngest Event Key Setup](https://www.inngest.com/docs/send-events/event-keys)
 - 🎧 [Deepgram API Docs](https://developers.deepgram.com/)
 - 🧠 [OpenAI API Docs](https://platform.openai.com/docs)
-
----
-
-## 🎉 Final Notes
-
-You now have a fully functional, AI-powered Pokédex app with voice interaction and real-time function monitoring!
-
-Feel free to:
-
-- Customize the workflow
-- Add new Inngest functions
-- Tweak UI/UX
-
-> Have fun building with AI, and **gotta catch 'em all!** 🔥🚀
-
