@@ -88,7 +88,9 @@ Visit [http://localhost:8288](http://localhost:8288) to monitor your events and 
 
 Click below to deploy to Vercel:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCharlesCreativeContent%2Fpokedex-inngest-deepgram&env=INNGEST_EVENT_KEY,INNGEST_SIGNING_KEY,DEEPGRAM_API_KEY,OPENAI_API_KEY&envDescription=You+will+need+API+keys+from+Inngest%2C+Deepgram%2C+and+OpenAI+to+deploy+this+project.&envLink=https%3A%2F%2Fapp.inngest.com%2Fenv%2Fproduction%2Fmanage%2Fkeys%2Chttps%3A%2F%2Fapp.inngest.com%2Fenv%2Fproduction%2Fmanage%2Fsigning-key%2Chttps%3A%2F%2Fplatform.openai.com%2Fapi-keys%2Chttps%3A%2F%2Fconsole.deepgram.com%2Flogin&project-name=pokedex-inngest-deepgram&demo-title=Pok%C3%A9dex+AI+App&demo-description=An+AI-powered+Pok%C3%A9dex+app+built+with+Next.js%2C+Inngest%2C+Deepgram%2C+and+OpenAI.+Talk+or+type+to+ask+questions+about+Pok%C3%A9mon+and+watch+the+workflow+in+real+time.&demo-url=https%3A%2F%2Fpokedex-inngest-deepgram.vercel.app&demo-image=https%3A%2F%2Fshawncharles.com%2Fimages%2Fpokedex-cover.png&teamSlug=charlescreativecontents-projects&env=INNGEST_ENV%3Dproduction)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCharlesCreativeContent%2Fpokedex-inngest-deepgram&env=INNGEST_EVENT_KEY,INNGEST_SIGNING_KEY,DEEPGRAM_API_KEY,OPENAI_API_KEY&demo-title=Pok%C3%A9dex+AI+App&demo-description=An+AI-powered+Pok%C3%A9dex+app+built+with+Next.js%2C+Inngest%2C+Deepgram%2C+and+OpenAI.&demo-url=https%3A%2F%2Fpokedex-inngest-deepgram.vercel.app&demo-image=https%3A%2F%2Fshawncharles.com%2Fimages%2Fpokedex-cover.png)
+
+
 
 You’ll be prompted to:
 
