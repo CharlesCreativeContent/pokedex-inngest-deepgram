@@ -2,7 +2,7 @@
 
 This is a **Pokémon Pokédex demo app** built with **Next.js**, **Inngest**, **Deepgram**, and **OpenAI**. It demonstrates how to orchestrate an AI-powered workflow—such as transcribing audio and generating intelligent responses—using the [Inngest](https://www.inngest.com) cloud platform.
 
-> ⚡ Run it locally to interact with the Pokédex, and observe each workflow step in real-time using Inngest’s Dev UI.
+> ⚡ Run it locally to interact with the Pokédex, and observe each workflow in real-time using Inngest’s Dev UI.
 
 ---
 
